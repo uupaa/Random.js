@@ -203,18 +203,22 @@ function testRandom_reproducibility(next) {
 
     // --------------------
     var random1 = new Random(seed);
-    random1.values(1000);
+        random1.values(1000);
 
     var value1 = random1.value(); // 1001 value
     var index1 = random1.index(); // 1001
+    var seed1  = random1.seed();
 
     // --------------------
-    var random2 = new Random(seed, index1 - 1);
+    var random2 = new Random(seed1, index1 - 1);
     var value2 = random2.value(); // 1001 value
     var index2 = random2.index(); // 1001
+    var seed2  = random2.seed();
 
 
-    if (index1 === index2 && value1 === value2) {
+    if (seed1  === seed2  &&
+        index1 === index2 &&
+        value1 === value2) {
         next && next.pass();
     } else {
         next && next.miss();

@@ -19,7 +19,7 @@ Random function (XORShift implement).
 <script src="lib/Random.js">
 <script>
 // for Browser
-console.log( Random(10) );
+console.log( Random.value() );
 </script>
 ```
 
@@ -27,13 +27,13 @@ console.log( Random(10) );
 // for WebWorkers
 importScripts("lib/Random.js");
 
-console.log( Random(10) );
+console.log( Random.value() );
 ```
 
 ```js
 // for Node.js
 var Random = require("lib/Random.js");
 
-console.log( Random(10) );
+console.log( Random.value() );
 ```
 
