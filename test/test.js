@@ -12,19 +12,42 @@ return new Test("Random", {
         button:     true,
         both:       true,
     }).add([
+        testRandom_zero,
         testRandom_withoutSeed,
         testRandom_init,
         testRandom_withSeed1,
         testRandom_withSeed2,
         testRandom_dump,
+        testRandom_reproducibility,
     ]).run().clone();
 
 
+function testRandom_zero(next) {
+
+    var random = new Random();
+    var value = random.value();
+    var result = [
+            3701687786,
+        ];
+
+    var ok = true;
+
+    for (var i = 0, iz = result.length; i < iz; ++i) {
+        if ( value !== result[i] / 0x100000000) {
+            ok = false;
+        }
+    }
+    if (ok) {
+        next && next.pass();
+    } else {
+        next && next.miss();
+    }
+}
+
 function testRandom_withoutSeed(next) {
 
-    Random.init();
-
-    var ary = Random(10);
+    var random = new Random();
+    var ary = random.values(10);
     var result = [
             3701687786,
              458299110,
@@ -41,7 +64,7 @@ function testRandom_withoutSeed(next) {
     var ok = true;
 
     for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( ary[i] !== result[i]) {
+        if ( ary[i] !== result[i] / 0x100000000) {
             ok = false;
         }
     }
@@ -54,9 +77,8 @@ function testRandom_withoutSeed(next) {
 
 function testRandom_init(next) {
 
-    Random.init();
-
-    var ary = Random(10);
+    var random = new Random();
+    var ary = random.values(10);
     var result = [
             3701687786,
              458299110,
@@ -73,7 +95,7 @@ function testRandom_init(next) {
     var ok = true;
 
     for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( ary[i] !== result[i]) {
+        if ( ary[i] !== result[i] / 0x100000000) {
             ok = false;
         }
     }
@@ -86,9 +108,8 @@ function testRandom_init(next) {
 
 function testRandom_withSeed1(next) {
 
-    Random.init(1);
-
-    var ary = Random(10);
+    var random = new Random(1);
+    var ary = random.values(10);
     var result = [
             3761443873,
             1919982996,
@@ -105,7 +126,7 @@ function testRandom_withSeed1(next) {
     var ok = true;
 
     for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( ary[i] !== result[i]) {
+        if ( ary[i] !== result[i] / 0x100000000) {
             ok = false;
         }
     }
@@ -118,9 +139,8 @@ function testRandom_withSeed1(next) {
 
 function testRandom_withSeed2(next) {
 
-    Random.init(2);
-
-    var ary = Random(10);
+    var random = new Random(2);
+    var ary = random.values(10);
     var result = [
             4073518514,
             3577947686,
@@ -136,7 +156,7 @@ function testRandom_withSeed2(next) {
     var ok = true;
 
     for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( ary[i] !== result[i]) {
+        if ( ary[i] !== result[i] / 0x100000000) {
             ok = false;
         }
     }
@@ -149,10 +169,8 @@ function testRandom_withSeed2(next) {
 
 function testRandom_dump(next) {
 
-    Random.init(2);
-    Random(3);
-
-    var ary = Random(7);
+    var random = new Random(2, 3);
+    var ary = random.values(7);
     var result = [
 //          4073518514,
 //          3577947686,
@@ -169,11 +187,34 @@ function testRandom_dump(next) {
     var ok = true;
 
     for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( ary[i] !== result[i]) {
+        if ( ary[i] !== result[i] / 0x100000000) {
             ok = false;
         }
     }
     if (ok) {
+        next && next.pass();
+    } else {
+        next && next.miss();
+    }
+}
+
+function testRandom_reproducibility(next) {
+    var seed = 2;
+
+    // --------------------
+    var random1 = new Random(seed);
+    random1.values(1000);
+
+    var value1 = random1.value(); // 1001 value
+    var index1 = random1.index(); // 1001
+
+    // --------------------
+    var random2 = new Random(seed, index1 - 1);
+    var value2 = random2.value(); // 1001 value
+    var index2 = random2.index(); // 1001
+
+
+    if (index1 === index2 && value1 === value2) {
         next && next.pass();
     } else {
         next && next.miss();

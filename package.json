@@ -1,9 +1,9 @@
 {
   "name":           "uupaa.random.js",
-  "version":        "0.0.1",
+  "version":        "0.0.2",
   "description":    "Random function(Xorshift implement)",
   "url":            "https://github.com/uupaa/Random.js",
-  "keywords":       ["random", "seed", "xorshift", "uupaa", "WebModule", "Unstable"],
+  "keywords":       ["random", "seed", "xorshift", "uupaa", "WebModule", "Stable"],
   "repository": {
     "type":         "git",
     "url":          "https://github.com/uupaa/Random.js.git"
