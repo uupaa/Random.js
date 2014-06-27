@@ -22,7 +22,7 @@ return new Test("Random", {
     ]).run().clone();
 
 
-function testRandom_zero(next) {
+function testRandom_zero(test, pass, miss) {
 
     var random = new Random();
     var value = random.value();
@@ -38,13 +38,13 @@ function testRandom_zero(next) {
         }
     }
     if (ok) {
-        next && next.pass();
+        test.done(pass());
     } else {
-        next && next.miss();
+        test.done(miss());
     }
 }
 
-function testRandom_withoutSeed(next) {
+function testRandom_withoutSeed(test, pass, miss) {
 
     var random = new Random();
     var ary = random.values(10);
@@ -69,13 +69,13 @@ function testRandom_withoutSeed(next) {
         }
     }
     if (ok) {
-        next && next.pass();
+        test.done(pass());
     } else {
-        next && next.miss();
+        test.done(miss());
     }
 }
 
-function testRandom_init(next) {
+function testRandom_init(test, pass, miss) {
 
     var random = new Random();
     var ary = random.values(10);
@@ -100,13 +100,13 @@ function testRandom_init(next) {
         }
     }
     if (ok) {
-        next && next.pass();
+        test.done(pass());
     } else {
-        next && next.miss();
+        test.done(miss());
     }
 }
 
-function testRandom_withSeed1(next) {
+function testRandom_withSeed1(test, pass, miss) {
 
     var random = new Random(1);
     var ary = random.values(10);
@@ -131,13 +131,13 @@ function testRandom_withSeed1(next) {
         }
     }
     if (ok) {
-        next && next.pass();
+        test.done(pass());
     } else {
-        next && next.miss();
+        test.done(miss());
     }
 }
 
-function testRandom_withSeed2(next) {
+function testRandom_withSeed2(test, pass, miss) {
 
     var random = new Random(2);
     var ary = random.values(10);
@@ -161,13 +161,13 @@ function testRandom_withSeed2(next) {
         }
     }
     if (ok) {
-        next && next.pass();
+        test.done(pass());
     } else {
-        next && next.miss();
+        test.done(miss());
     }
 }
 
-function testRandom_dump(next) {
+function testRandom_dump(test, pass, miss) {
 
     var random = new Random(2, 3);
     var ary = random.values(7);
@@ -192,13 +192,13 @@ function testRandom_dump(next) {
         }
     }
     if (ok) {
-        next && next.pass();
+        test.done(pass());
     } else {
-        next && next.miss();
+        test.done(miss());
     }
 }
 
-function testRandom_reproducibility(next) {
+function testRandom_reproducibility(test, pass, miss) {
     var seed = 2;
 
     // --------------------
@@ -219,9 +219,10 @@ function testRandom_reproducibility(next) {
     if (seed1  === seed2  &&
         index1 === index2 &&
         value1 === value2) {
-        next && next.pass();
+
+        test.done(pass());
     } else {
-        next && next.miss();
+        test.done(miss());
     }
 }
 
