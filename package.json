@@ -1,6 +1,6 @@
 {
   "name":           "uupaa.random.js",
-  "version":        "0.0.5",
+  "version":        "0.0.6",
   "description":    "Random function(Xorshift implement)",
   "url":            "https://github.com/uupaa/Random.js",
   "keywords":       ["random", "seed", "xorshift", "uupaa", "WebModule", "Stable"],
@@ -9,6 +9,7 @@
     "url":          "https://github.com/uupaa/Random.js.git"
   },
   "scripts": {
+    "init":         "npm update; npm run build; npm run test-page",
     "watch":        "node node_modules/uupaa.watch.js --verbose --action build",
     "build":        "node node_modules/uupaa.minify.js --verbose --strict --keep --pretty",
     "build-simple": "node node_modules/uupaa.minify.js --verbose --strict --keep --pretty --nowrap --simple",
@@ -22,13 +23,14 @@
     "server":       "http-server -c-1 -p 8585 &",
     "server-stop":  "",
     "server-kill":  "killall -- node /usr/local/bin/http-server -p 8585 ; exit 0",
+    "hint":         "jshint lib/*.js",
     "lint":         "node node_modules/uupaa.plato.js; open lint/plato/index.html"
   },
   "x-build": {
     "source":       ["lib/Random.js"],
     "output":       "release/Random.min.js",
     "target":       ["all"],
-    "labels":       ["@dev"],
+    "label":        ["@dev"],
     "module": {
       "develop":    ["uupaa.valid.js"],
       "release":    []

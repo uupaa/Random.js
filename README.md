@@ -1,37 +1,39 @@
-=========
-Random.js
-=========
+# Random.js [![Build Status](https://travis-ci.org/uupaa/Random.js.png)](http://travis-ci.org/uupaa/Random.js)
 
-![](https://travis-ci.org/uupaa/Random.js.png)
+[![npm](https://nodei.co/npm/uupaa.random.js.png?downloads=true&stars=true)](https://nodei.co/npm/uupaa.random.js/)
 
 Random function (XORShift implement).
 
-# Document
+## Document
 
 - [Random.js wiki](https://github.com/uupaa/Random.js/wiki/Random)
 - [Development](https://github.com/uupaa/WebModule/wiki/Development)
-- [WebModule](https://github.com/uupaa/WebModule) ([Slide](http://uupaa.github.io/Slide/slide/WebModule/index.html))
+- [WebModule](https://github.com/uupaa/WebModule)
+    - [Slide](http://uupaa.github.io/Slide/slide/WebModule/index.html)
+    - [Development](https://github.com/uupaa/WebModule/wiki/Development)
 
+## How to use
 
-# How to use
+### Browser
 
 ```js
 <script src="lib/Random.js">
 <script>
-// for Browser
 console.log( Random.value() );
 </script>
 ```
 
+### WebWorkers
+
 ```js
-// for WebWorkers
 importScripts("lib/Random.js");
 
 console.log( Random.value() );
 ```
 
+### Node.js
+
 ```js
-// for Node.js
 var Random = require("lib/Random.js");
 
 console.log( Random.value() );
