@@ -1,53 +1,34 @@
 var ModuleTestRandom = (function(global) {
 
-var _runOnNode = "process" in global;
-var _runOnWorker = "WorkerLocation" in global;
-var _runOnBrowser = "document" in global;
+var _isNodeOrNodeWebKit = !!global.global;
+var _runOnNodeWebKit =  _isNodeOrNodeWebKit &&  /native/.test(setTimeout);
+var _runOnNode       =  _isNodeOrNodeWebKit && !/native/.test(setTimeout);
+var _runOnWorker     = !_isNodeOrNodeWebKit && "WorkerLocation" in global;
+var _runOnBrowser    = !_isNodeOrNodeWebKit && "document" in global;
 
 return new Test("Random", {
         disable:    false,
         browser:    true,
         worker:     true,
         node:       true,
+        nw:         true,
         button:     true,
         both:       true,
     }).add([
-        testRandom_zero,
-        testRandom_withoutSeed,
-        testRandom_init,
-        testRandom_withSeed1,
-        testRandom_withSeed2,
-        testRandom_dump,
+        testRandom_noSeed,
+        testRandom_seed0,
+        testRandom_seed1,
+        testRandom_seed2,
+        testRandom_seed36,
+        testRandom_startIndex,
         testRandom_reproducibility,
+        testRandom_dump1000,
     ]).run().clone();
 
 
-function testRandom_zero(test, pass, miss) {
+function testRandom_noSeed(test, pass, miss) {
 
     var random = new Random();
-    var value = random.value();
-    var result = [
-            3701687786,
-        ];
-
-    var ok = true;
-
-    for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( value !== result[i] / 0x100000000) {
-            ok = false;
-        }
-    }
-    if (ok) {
-        test.done(pass());
-    } else {
-        test.done(miss());
-    }
-}
-
-function testRandom_withoutSeed(test, pass, miss) {
-
-    var random = new Random();
-    var ary = random.values(10);
     var result = [
             3701687786,
              458299110,
@@ -64,7 +45,8 @@ function testRandom_withoutSeed(test, pass, miss) {
     var ok = true;
 
     for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( ary[i] !== result[i] / 0x100000000) {
+        var r = random.next();
+        if (r !== result[i]) {
             ok = false;
         }
     }
@@ -75,10 +57,9 @@ function testRandom_withoutSeed(test, pass, miss) {
     }
 }
 
-function testRandom_init(test, pass, miss) {
+function testRandom_seed0(test, pass, miss) {
 
     var random = new Random();
-    var ary = random.values(10);
     var result = [
             3701687786,
              458299110,
@@ -95,7 +76,8 @@ function testRandom_init(test, pass, miss) {
     var ok = true;
 
     for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( ary[i] !== result[i] / 0x100000000) {
+        var r = random.next();
+        if (r !== result[i]) {
             ok = false;
         }
     }
@@ -106,10 +88,10 @@ function testRandom_init(test, pass, miss) {
     }
 }
 
-function testRandom_withSeed1(test, pass, miss) {
+
+function testRandom_seed1(test, pass, miss) {
 
     var random = new Random(1);
-    var ary = random.values(10);
     var result = [
             3761443873,
             1919982996,
@@ -126,7 +108,8 @@ function testRandom_withSeed1(test, pass, miss) {
     var ok = true;
 
     for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( ary[i] !== result[i] / 0x100000000) {
+        var r = random.next();
+        if (r !== result[i]) {
             ok = false;
         }
     }
@@ -137,10 +120,9 @@ function testRandom_withSeed1(test, pass, miss) {
     }
 }
 
-function testRandom_withSeed2(test, pass, miss) {
+function testRandom_seed2(test, pass, miss) {
 
     var random = new Random(2);
-    var ary = random.values(10);
     var result = [
             4073518514,
             3577947686,
@@ -156,7 +138,8 @@ function testRandom_withSeed2(test, pass, miss) {
     var ok = true;
 
     for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( ary[i] !== result[i] / 0x100000000) {
+        var r = random.next();
+        if (r !== result[i]) {
             ok = false;
         }
     }
@@ -167,10 +150,40 @@ function testRandom_withSeed2(test, pass, miss) {
     }
 }
 
-function testRandom_dump(test, pass, miss) {
+function testRandom_seed36(test, pass, miss) {
+
+    var random = new Random(36);
+    var result = [
+            3701687786,
+             458299110,
+            2500872618,
+            3633119408,
+             516391518,
+            2377269574,
+            2599949379,
+             717229868,
+             137866584,
+             395339113,
+        ];
+
+    var ok = true;
+
+    for (var i = 0, iz = result.length; i < iz; ++i) {
+        var r = random.next();
+        if (r !== result[i]) {
+            ok = false;
+        }
+    }
+    if (ok) {
+        test.done(pass());
+    } else {
+        test.done(miss());
+    }
+}
+
+function testRandom_startIndex(test, pass, miss) {
 
     var random = new Random(2, 3);
-    var ary = random.values(7);
     var result = [
 //          4073518514,
 //          3577947686,
@@ -187,7 +200,8 @@ function testRandom_dump(test, pass, miss) {
     var ok = true;
 
     for (var i = 0, iz = result.length; i < iz; ++i) {
-        if ( ary[i] !== result[i] / 0x100000000) {
+        var r = random.next();
+        if (r !== result[i]) {
             ok = false;
         }
     }
@@ -201,29 +215,24 @@ function testRandom_dump(test, pass, miss) {
 function testRandom_reproducibility(test, pass, miss) {
     var seed = 2;
 
-    // --------------------
-    var random1 = new Random(seed);
-        random1.values(1000);
+    var random1 = new Random(seed, 1000);
+    var random2 = new Random(seed, 1000);
 
-    var value1 = random1.value(); // 1001 value
-    var index1 = random1.index(); // 1001
-    var seed1  = random1.seed();
-
-    // --------------------
-    var random2 = new Random(seed1, index1 - 1);
-    var value2 = random2.value(); // 1001 value
-    var index2 = random2.index(); // 1001
-    var seed2  = random2.seed();
-
-
-    if (seed1  === seed2  &&
-        index1 === index2 &&
-        value1 === value2) {
-
+    if (random1.next() === random2.next()) {
         test.done(pass());
     } else {
         test.done(miss());
     }
+}
+
+function testRandom_dump1000(test, pass, miss) {
+    var random = new Random();
+
+    for (i = 0; i < 1000; ++i) {
+        var r = random.next();
+        console.log(i, r, r / 0x100000000);
+    }
+    test.done(pass());
 }
 
 })((this || 0).self || global);
