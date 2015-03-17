@@ -14,7 +14,7 @@ Random function (XORShift implement).
 
 ## How to use
 
-### Browser
+### Browser and NodeWebKit
 
 ```js
 <script src="lib/Random.js">

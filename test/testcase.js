@@ -91,7 +91,11 @@ function testRandom_seed0(test, pass, miss) {
 
 function testRandom_seed1(test, pass, miss) {
 
-    var random = new Random(1);
+  //var random = new Random(1);
+    var random = new Random([ 234567893,
+                              624360695,
+                              212886290,
+                              886751231 ]);
     var result = [
             3761443873,
             1919982996,
@@ -122,7 +126,12 @@ function testRandom_seed1(test, pass, miss) {
 
 function testRandom_seed2(test, pass, miss) {
 
-    var random = new Random(2);
+  //var random = new Random(2);
+    var random = new Random([
+                              345678936,
+                              243606952,
+                              128862908,
+                              867512312 ]);
     var result = [
             4073518514,
             3577947686,
@@ -152,7 +161,12 @@ function testRandom_seed2(test, pass, miss) {
 
 function testRandom_seed36(test, pass, miss) {
 
-    var random = new Random(36);
+  //var random = new Random(36);
+    var random = new Random([
+                              123456789,
+                              362436069,
+                              521288629,
+                              088675123 ]);
     var result = [
             3701687786,
              458299110,
@@ -183,7 +197,12 @@ function testRandom_seed36(test, pass, miss) {
 
 function testRandom_startIndex(test, pass, miss) {
 
-    var random = new Random(2, 3);
+  //var random = new Random(2, 3);
+    var random = new Random([
+                              345678936,
+                              243606952,
+                              128862908,
+                              867512312 ], 3);
     var result = [
 //          4073518514,
 //          3577947686,
@@ -215,8 +234,19 @@ function testRandom_startIndex(test, pass, miss) {
 function testRandom_reproducibility(test, pass, miss) {
     var seed = 2;
 
-    var random1 = new Random(seed, 1000);
-    var random2 = new Random(seed, 1000);
+  //var random1 = new Random(seed, 1000);
+  //var random2 = new Random(seed, 1000);
+
+    var random1 = new Random([
+                              345678936,
+                              243606952,
+                              128862908,
+                              867512312 ]);
+    var random2 = new Random([
+                              345678936,
+                              243606952,
+                              128862908,
+                              867512312 ]);
 
     if (random1.next() === random2.next()) {
         test.done(pass());
