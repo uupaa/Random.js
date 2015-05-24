@@ -7,17 +7,16 @@ Random function (XORShift implement).
 ## Document
 
 - [Random.js wiki](https://github.com/uupaa/Random.js/wiki/Random)
-- [Development](https://github.com/uupaa/WebModule/wiki/Development)
 - [WebModule](https://github.com/uupaa/WebModule)
     - [Slide](http://uupaa.github.io/Slide/slide/WebModule/index.html)
     - [Development](https://github.com/uupaa/WebModule/wiki/Development)
 
-## How to use
+## Run on
 
-### Browser and NodeWebKit
+### Browser and node-webkit
 
 ```js
-<script src="lib/Random.js">
+<script src="lib/Random.js"></script>
 <script>
 console.log( Random.value() );
 </script>
@@ -28,14 +27,12 @@ console.log( Random.value() );
 ```js
 importScripts("lib/Random.js");
 
-console.log( Random.value() );
 ```
 
 ### Node.js
 
 ```js
-var Random = require("lib/Random.js");
+require("lib/Random.js");
 
-console.log( Random.value() );
 ```
 
