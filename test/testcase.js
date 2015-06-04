@@ -24,11 +24,24 @@ var test = new Test("Random", {
         testRandom_dump1000,
     ]);
 
+if (IN_BROWSER || IN_NW) {
+    test.add([
+        // browser and node-webkit test
+    ]);
+} else if (IN_WORKER) {
+    test.add([
+        // worker test
+    ]);
+} else if (IN_NODE) {
+    test.add([
+        // node.js and io.js test
+    ]);
+}
 
 // --- test cases ------------------------------------------
 function testRandom_noSeed(test, pass, miss) {
 
-    var random = new Random();
+    var random = new WebModule.Random();
     var result = [
             3701687786,
              458299110,
@@ -59,7 +72,7 @@ function testRandom_noSeed(test, pass, miss) {
 
 function testRandom_seed0(test, pass, miss) {
 
-    var random = new Random();
+    var random = new WebModule.Random();
     var result = [
             3701687786,
              458299110,
@@ -90,8 +103,8 @@ function testRandom_seed0(test, pass, miss) {
 
 function testRandom_seed36(test, pass, miss) {
 
-  //var random = new Random(36);
-    var random = new Random([
+  //var random = new WebModule.Random(36);
+    var random = new WebModule.Random([
                               123456789,
                               362436069,
                               521288629,
@@ -126,8 +139,8 @@ function testRandom_seed36(test, pass, miss) {
 
 function testRandom_startIndex(test, pass, miss) {
 
-  //var random = new Random(2, 3);
-    var random = new Random([
+  //var random = new WebModule.Random(2, 3);
+    var random = new WebModule.Random([
                               345678936,
                               243606952,
                               128862908,
@@ -163,15 +176,15 @@ function testRandom_startIndex(test, pass, miss) {
 function testRandom_reproducibility(test, pass, miss) {
     var seed = 2;
 
-  //var random1 = new Random(seed, 1000);
-  //var random2 = new Random(seed, 1000);
+  //var random1 = new WebModule.Random(seed, 1000);
+  //var random2 = new WebModule.Random(seed, 1000);
 
-    var random1 = new Random([
+    var random1 = new WebModule.Random([
                               345678936,
                               243606952,
                               128862908,
                               867512312 ]);
-    var random2 = new Random([
+    var random2 = new WebModule.Random([
                               345678936,
                               243606952,
                               128862908,
@@ -185,7 +198,7 @@ function testRandom_reproducibility(test, pass, miss) {
 }
 
 function testRandom_dump1000(test, pass, miss) {
-    var random = new Random();
+    var random = new WebModule.Random();
 
     for (i = 0; i < 1000; ++i) {
         var r = random.next();

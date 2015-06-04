@@ -1,38 +1,35 @@
-# Random.js [![Build Status](https://travis-ci.org/uupaa/Random.js.png)](http://travis-ci.org/uupaa/Random.js)
+# Random.js [![Build Status](https://travis-ci.org/uupaa/Random.js.svg)](https://travis-ci.org/uupaa/Random.js)
 
-[![npm](https://nodei.co/npm/uupaa.random.js.png?downloads=true&stars=true)](https://nodei.co/npm/uupaa.random.js/)
+[![npm](https://nodei.co/npm/uupaa.random.js.svg?downloads=true&stars=true)](https://nodei.co/npm/uupaa.random.js/)
 
-Random function (XORShift implement).
 
-## Document
 
-- [Random.js wiki](https://github.com/uupaa/Random.js/wiki/Random)
-- [WebModule](https://github.com/uupaa/WebModule)
-    - [Slide](http://uupaa.github.io/Slide/slide/WebModule/index.html)
-    - [Development](https://github.com/uupaa/WebModule/wiki/Development)
+- Random.js made of [WebModule](https://github.com/uupaa/WebModule).
+- [Spec](https://github.com/uupaa/Random.js/wiki/Random)
 
-## Run on
-
-### Browser and node-webkit
+## Browser and NW.js(node-webkit)
 
 ```js
-<script src="lib/Random.js"></script>
+<script src="<your-install-dir>/lib/WebModule.js"></script>
+<script src="<your-install-dir>/lib/Random.js"></script>
 <script>
-console.log( Random.value() );
+console.log( WebModule.Random.value() );
 </script>
 ```
 
-### WebWorkers
+## WebWorkers
 
 ```js
-importScripts("lib/Random.js");
+importScripts("<your-install-dir>lib/WebModule.js");
+importScripts("<your-install-dir>lib/Random.js");
 
 ```
 
-### Node.js
+## Node.js
 
 ```js
-require("lib/Random.js");
+require("<your-install-dir>lib/WebModule.js");
+require("<your-install-dir>lib/Random.js");
 
 ```
 
