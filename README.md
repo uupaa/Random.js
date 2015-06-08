@@ -10,8 +10,8 @@
 ## Browser and NW.js(node-webkit)
 
 ```js
-<script src="<your-install-dir>/lib/WebModule.js"></script>
-<script src="<your-install-dir>/lib/Random.js"></script>
+<script src="<module-dir>/lib/WebModule.js"></script>
+<script src="<module-dir>/lib/Random.js"></script>
 <script>
 console.log( WebModule.Random.value() );
 </script>
@@ -20,16 +20,16 @@ console.log( WebModule.Random.value() );
 ## WebWorkers
 
 ```js
-importScripts("<your-install-dir>lib/WebModule.js");
-importScripts("<your-install-dir>lib/Random.js");
+importScripts("<module-dir>lib/WebModule.js");
+importScripts("<module-dir>lib/Random.js");
 
 ```
 
 ## Node.js
 
 ```js
-require("<your-install-dir>lib/WebModule.js");
-require("<your-install-dir>lib/Random.js");
+require("<module-dir>lib/WebModule.js");
+require("<module-dir>lib/Random.js");
 
 ```
 
