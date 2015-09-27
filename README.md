@@ -4,8 +4,8 @@
 
 
 
-- Random.js made of [WebModule](https://github.com/uupaa/WebModule).
-- [Spec](https://github.com/uupaa/Random.js/wiki/Random)
+- Please refer to [Spec](https://github.com/uupaa/Random.js/wiki/) and [API Spec](https://github.com/uupaa/Random.js/wiki/Random) links.
+- The Random.js is made of [WebModule](https://github.com/uupaa/WebModule).
 
 ## Browser and NW.js(node-webkit)
 
@@ -13,7 +13,12 @@
 <script src="<module-dir>/lib/WebModule.js"></script>
 <script src="<module-dir>/lib/Random.js"></script>
 <script>
-console.log( WebModule.Random.value() );
+var random = new Random();
+
+random.next() // -> 0x000000000 - 0xffffffff
+random.next() // -> 0x000000000 - 0xffffffff
+random.next() // -> 0x000000000 - 0xffffffff
+
 </script>
 ```
 
@@ -23,6 +28,7 @@ console.log( WebModule.Random.value() );
 importScripts("<module-dir>lib/WebModule.js");
 importScripts("<module-dir>lib/Random.js");
 
+...
 ```
 
 ## Node.js
@@ -31,5 +37,6 @@ importScripts("<module-dir>lib/Random.js");
 require("<module-dir>lib/WebModule.js");
 require("<module-dir>lib/Random.js");
 
+...
 ```
 
